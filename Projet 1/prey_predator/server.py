@@ -15,14 +15,17 @@ def wolf_sheep_portrayal(agent):
     if type(agent) is Sheep:
         portrayal["Shape"] = "prey_predator/sheep.png"
         portrayal["scale"] = 0.9
+        portrayal["Layer"] = 1
 
     elif type(agent) is Wolf:
         portrayal["Shape"] = "prey_predator/wolf.png"
         portrayal["scale"] = 0.9
+        portrayal["Layer"] = 1
 
     elif type(agent) is GrassPatch:
         portrayal["Shape"] = "prey_predator/grass.png"
         portrayal["scale"] = 0.9
+        portrayal["Layer"] = 0
 
     return portrayal
 
