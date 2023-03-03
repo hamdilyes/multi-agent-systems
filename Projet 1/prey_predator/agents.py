@@ -20,7 +20,26 @@ class Sheep(RandomWalker):
         A model step. Move, then eat grass and reproduce.
         """
         self.random_move()
+        # If grass available, eat it
+        cellmates = self.model.grid.get_cell_list_contents([self.pos])
+        # Type of agent in cellmates
+        if len(cellmates) > 0 and any( type(mate) is GrassPatch for mate in cellmates) :
+            for mate in cellmates:
+                if type(mate) is GrassPatch:
+                    if mate.fully_grown:
+                        mate.fully_grown = False
+                        self.energy += 1
+        # reproduce if enough energy
+        if self.energy > 4 :
+            sheep = Sheep(self.model.next_id,self.pos,self.model,True)
+            self.model.schedule.add(sheep)
+            self.model.grid.place_agent(sheep,self.pos)
         
+        
+
+
+        
+
 
 
 class Wolf(RandomWalker):
@@ -37,6 +56,19 @@ class Wolf(RandomWalker):
     def step(self):
         self.random_move()
         # ... to be completed
+        cellmates = self.model.grid.get_cell_list_contents([self.pos])
+        # Type of agent in cellmates
+        if len(cellmates) > 0 and any( type(mate) is Sheep for mate in cellmates) :
+            for mate in cellmates:
+                if type(mate) is Sheep:
+                    if mate.fully_grown:
+                        mate.fully_grown = False
+                        self.energy += 1
+        # reproduce if enough energy
+        if self.energy > 4 :
+            wolf = Wolf(self.model.next_id,self.pos,self.model,True)
+            self.model.schedule.add(wolf)
+            self.model.grid.place_agent(wolf,self.pos)
 
 
 class GrassPatch(Agent):
@@ -54,6 +86,15 @@ class GrassPatch(Agent):
         """
         super().__init__(unique_id, model)
         # ... to be completed
+        self.pos = pos
+        self.fully_grown = fully_grown
+        self.countdown = countdown
 
     def step(self):
         # ... to be completed
+        if self.fully_grown == False and self.countdown > 0:
+            self.countdown -= 1
+        elif self.fully_grown == False and self.countdown == 0:
+            self.fully_grown = True
+            self.countdown = 10
+        
