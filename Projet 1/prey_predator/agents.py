@@ -35,12 +35,6 @@ class Sheep(RandomWalker):
             self.model.schedule.add(sheep)
             self.model.grid.place_agent(sheep,self.pos)
         
-        
-
-
-        
-
-
 
 class Wolf(RandomWalker):
     """
