@@ -95,7 +95,7 @@ class WolfSheep(Model):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
             energy = 3 # hypothesis: sheep all start with the same energy = 3
-            sheep = Sheep(self.model.next_id(), (x, y), self, True, energy)
+            sheep = Sheep(self.next_id(), (x, y), self, True, energy)
             self.grid.place_agent(sheep, (x, y))
             self.schedule.add(sheep)
 
@@ -104,7 +104,7 @@ class WolfSheep(Model):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
             energy = 5 # hypothesis: wolves all start with the same energy = 5
-            wolf = Wolf(self.model.next_id(), (x, y), self, True, energy)
+            wolf = Wolf(self.next_id(), (x, y), self, True, energy)
             self.grid.place_agent(wolf, (x, y))
             self.schedule.add(wolf)
 
