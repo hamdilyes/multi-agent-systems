@@ -9,9 +9,7 @@ class Sheep(RandomWalker):
     The init is the same as the RandomWalker.
     """
 
-    energy = None
-
-    def __init__(self, unique_id, pos, model, moore, energy=None):
+    def __init__(self, unique_id, pos, model, moore, energy=3):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
 
@@ -41,9 +39,9 @@ class Wolf(RandomWalker):
     A wolf that walks around, reproduces (asexually) and eats sheep.
     """
 
-    energy = None
+    
 
-    def __init__(self, unique_id, pos, model, moore, energy=None):
+    def __init__(self, unique_id, pos, model, moore, energy=3):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
 
