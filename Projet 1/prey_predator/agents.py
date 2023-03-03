@@ -55,9 +55,8 @@ class Wolf(RandomWalker):
         if len(cellmates) > 0 and any( type(mate) is Sheep for mate in cellmates) :
             for mate in cellmates:
                 if type(mate) is Sheep:
-                    if mate.fully_grown:
-                        mate.fully_grown = False
-                        self.energy += 1
+                    del mate
+                    self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :
             wolf = Wolf(self.model.next_id,self.pos,self.model,True)
