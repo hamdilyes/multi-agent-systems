@@ -35,7 +35,7 @@ class Sheep(RandomWalker):
             self.model.schedule.add(sheep)
             self.model.grid.place_agent(sheep,self.pos)
 
-        if self.age < 0:
+        if self.age < 0 or self.energy < 0:
             self.model.schedule.remove(self)
             self.model.grid.remove_agent(self)
             #del self
@@ -48,12 +48,13 @@ class Wolf(RandomWalker):
 
     
 
-    def __init__(self, unique_id, pos, model, moore, energy=3, age=10):
+    def __init__(self, unique_id, pos, model, moore, energy=3, age=5):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
         self.age = age
 
     def step(self):
+        self.age -=1
         self.random_move()
         # ... to be completed
         cellmates = self.model.grid.get_cell_list_contents([self.pos])
@@ -67,11 +68,11 @@ class Wolf(RandomWalker):
                     self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :
-            wolf = Wolf(self.model.next_id,self.pos,self.model,True)
+            wolf = Wolf(self.model.next_id(©),self.pos,self.model,True)
             self.model.schedule.add(wolf)
             self.model.grid.place_agent(wolf,self.pos)
         
-        if self.age < 0:
+        if self.age < 0 or self.energy < 0:
             self.model.schedule.remove(self)
             self.model.grid.remove_agent(self)
             #del self
