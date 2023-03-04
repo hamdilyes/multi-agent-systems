@@ -68,7 +68,7 @@ class Wolf(RandomWalker):
                     self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :
-            wolf = Wolf(self.model.next_id(©),self.pos,self.model,True)
+            wolf = Wolf(self.model.next_id(),self.pos,self.model,True)
             self.model.schedule.add(wolf)
             self.model.grid.place_agent(wolf,self.pos)
         

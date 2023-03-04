@@ -26,7 +26,7 @@ class WolfSheep(Model):
     width = 20
 
     initial_sheep = 100
-    initial_wolves = 5
+    initial_wolves = 50
 
     sheep_reproduce = 0.04
     wolf_reproduce = 0.05
@@ -103,7 +103,7 @@ class WolfSheep(Model):
         for _ in range(self.initial_wolves):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
-            energy = 5 # hypothesis: wolves all start with the same energy = 5
+            energy = 2 # hypothesis: wolves all start with the same energy = 5
             wolf = Wolf(self.next_id(), (x, y), self, True, energy)
             self.grid.place_agent(wolf, (x, y))
             self.schedule.add(wolf)
