@@ -9,14 +9,16 @@ class Sheep(RandomWalker):
     The init is the same as the RandomWalker.
     """
 
-    def __init__(self, unique_id, pos, model, moore, energy=3):
+    def __init__(self, unique_id, pos, model, moore, energy=3,age = 10):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
+        self.age = age
 
     def step(self):
         """
         A model step. Move, then eat grass and reproduce.
         """
+        self.age -=1
         self.random_move()
         # If grass available, eat it
         cellmates = self.model.grid.get_cell_list_contents([self.pos])
@@ -32,6 +34,11 @@ class Sheep(RandomWalker):
             sheep = Sheep(self.model.next_id(),self.pos,self.model,True)
             self.model.schedule.add(sheep)
             self.model.grid.place_agent(sheep,self.pos)
+
+        if self.age < 0:
+            self.model.schedule.remove(self)
+            self.model.grid.remove_agent(self)
+            #del self
         
 
 class Wolf(RandomWalker):
@@ -41,9 +48,10 @@ class Wolf(RandomWalker):
 
     
 
-    def __init__(self, unique_id, pos, model, moore, energy=3):
+    def __init__(self, unique_id, pos, model, moore, energy=3, age=10):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
+        self.age = age
 
     def step(self):
         self.random_move()
@@ -62,6 +70,11 @@ class Wolf(RandomWalker):
             wolf = Wolf(self.model.next_id,self.pos,self.model,True)
             self.model.schedule.add(wolf)
             self.model.grid.place_agent(wolf,self.pos)
+        
+        if self.age < 0:
+            self.model.schedule.remove(self)
+            self.model.grid.remove_agent(self)
+            #del self
 
 
 class GrassPatch(Agent):

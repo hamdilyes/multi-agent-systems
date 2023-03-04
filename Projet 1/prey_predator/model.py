@@ -26,7 +26,7 @@ class WolfSheep(Model):
     width = 20
 
     initial_sheep = 100
-    initial_wolves = 50
+    initial_wolves = 5
 
     sheep_reproduce = 0.04
     wolf_reproduce = 0.05
@@ -45,8 +45,8 @@ class WolfSheep(Model):
         self,
         height=20,
         width=20,
-        initial_sheep=100,
-        initial_wolves=50,
+        initial_sheep=initial_sheep,
+        initial_wolves=initial_wolves,
         sheep_reproduce=0.04,
         wolf_reproduce=0.05,
         wolf_gain_from_food=20,
