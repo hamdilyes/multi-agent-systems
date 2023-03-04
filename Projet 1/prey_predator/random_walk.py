@@ -28,6 +28,7 @@ class RandomWalker(Agent):
                 Otherwise, only up, down, left, right.
         """
         super().__init__(unique_id, model)
+        print(self.pos,self)
         self.pos = pos
         self.moore = moore
 

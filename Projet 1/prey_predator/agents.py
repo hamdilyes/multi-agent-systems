@@ -29,7 +29,7 @@ class Sheep(RandomWalker):
                         self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :
-            sheep = Sheep(self.model.next_id,self.pos,self.model,True)
+            sheep = Sheep(self.model.next_id(),self.pos,self.model,True)
             self.model.schedule.add(sheep)
             self.model.grid.place_agent(sheep,self.pos)
         
@@ -53,7 +53,9 @@ class Wolf(RandomWalker):
         if len(cellmates) > 0 and any( type(mate) is Sheep for mate in cellmates) :
             for mate in cellmates:
                 if type(mate) is Sheep:
-                    del mate
+                    self.model.schedule.remove(mate)
+                    self.model.grid.remove_agent(mate)
+                    #del mate
                     self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :

@@ -94,7 +94,7 @@ class WolfSheep(Model):
         for _ in range(self.initial_sheep):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
-            energy = 3 # hypothesis: sheep all start with the same energy = 3
+            energy = 1 # hypothesis: sheep all start with the same energy = 3
             sheep = Sheep(self.next_id(), (x, y), self, True, energy)
             self.grid.place_agent(sheep, (x, y))
             self.schedule.add(sheep)
