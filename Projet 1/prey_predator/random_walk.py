@@ -1,19 +1,14 @@
 """
 Generalized behavior for random walking, one grid cell at a time.
 """
-
 from mesa import Agent
-
 
 class RandomWalker(Agent):
     """
     Class implementing random walker methods in a generalized manner.
-
     Not indended to be used on its own, but to inherit its methods to multiple
     other agents.
-
     """
-
     grid = None
     x = None
     y = None

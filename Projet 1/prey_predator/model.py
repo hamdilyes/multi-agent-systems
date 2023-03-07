@@ -1,14 +1,12 @@
 """
 Prey-Predator Model
 ================================
-
 Replication of the model found in NetLogo:
     Wilensky, U. (1997). NetLogo Wolf Sheep Predation model.
     http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation.
     Center for Connected Learning and Computer-Based Modeling,
     Northwestern University, Evanston, IL.
 """
-
 from mesa import Model
 from mesa.space import MultiGrid
 from mesa.datacollection import DataCollector
@@ -16,12 +14,10 @@ from mesa.datacollection import DataCollector
 from prey_predator.agents import Sheep, Wolf, GrassPatch
 from prey_predator.schedule import RandomActivationByBreed
 
-
 class WolfSheep(Model):
     """
     Wolf-Sheep Predation Model
     """
-
     height = 20
     width = 20
 

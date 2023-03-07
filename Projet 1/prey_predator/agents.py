@@ -8,8 +8,7 @@ class Sheep(RandomWalker):
 
     The init is the same as the RandomWalker.
     """
-
-    def __init__(self, unique_id, pos, model, moore, energy=3,age = 12):
+    def __init__(self, unique_id, pos, model, moore, energy=3, age = 12):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
         self.age = age
@@ -32,24 +31,19 @@ class Sheep(RandomWalker):
         # reproduce if enough energy
         if self.energy > 4 :
             r = np.random.choice(np.arange(0, 2), p=[self.model.sheep_reproduce, 1 - self.model.sheep_reproduce])
-            if r ==0:
-                sheep = Sheep(self.model.next_id(),self.pos,self.model,True)
+            if r == 0:
+                sheep = Sheep(self.model.next_id(), self.pos, self.model, True)
                 self.model.schedule.add(sheep)
-                self.model.grid.place_agent(sheep,self.pos)
+                self.model.grid.place_agent(sheep, self.pos)
 
         if self.age < 0 or self.energy < 0:
             self.model.schedule.remove(self)
             self.model.grid.remove_agent(self)
-            #del self
-        
 
 class Wolf(RandomWalker):
     """
     A wolf that walks around, reproduces (asexually) and eats sheep.
     """
-
-    
-
     def __init__(self, unique_id, pos, model, moore, energy=3, age=14):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
@@ -58,7 +52,6 @@ class Wolf(RandomWalker):
     def step(self):
         self.age -=1
         self.random_move()
-        # ... to be completed
         cellmates = self.model.grid.get_cell_list_contents([self.pos])
         # Type of agent in cellmates
         if len(cellmates) > 0 and any( type(mate) is Sheep for mate in cellmates) :
@@ -66,44 +59,36 @@ class Wolf(RandomWalker):
                 if type(mate) is Sheep:
                     self.model.schedule.remove(mate)
                     self.model.grid.remove_agent(mate)
-                    #del mate
                     self.energy += 1
         # reproduce if enough energy
         if self.energy > 4 :
             r = np.random.choice(np.arange(0, 2), p=[self.model.wolf_reproduce, 1 - self.model.wolf_reproduce])
-            if r ==0:
-            
-                wolf = Wolf(self.model.next_id(),self.pos,self.model,True)
+            if r == 0:
+                wolf = Wolf(self.model.next_id(), self.pos, self.model, True)
                 self.model.schedule.add(wolf)
-                self.model.grid.place_agent(wolf,self.pos)
+                self.model.grid.place_agent(wolf, self.pos)
         
         if self.age < 0 or self.energy < 0:
             self.model.schedule.remove(self)
             self.model.grid.remove_agent(self)
-            #del self
-
 
 class GrassPatch(Agent):
     """
     A patch of grass that grows at a fixed rate and it is eaten by sheep
     """
-
     def __init__(self, unique_id, pos, model, fully_grown, countdown):
         """
         Creates a new patch of grass
-
         Args:
-            grown: (boolean) Whether the patch of grass is fully grown or not
+            fully_grown: (boolean) Whether the patch of grass is fully grown or not
             countdown: Time for the patch of grass to be fully grown again
         """
         super().__init__(unique_id, model)
-        # ... to be completed
         self.pos = pos
         self.fully_grown = fully_grown
         self.countdown = countdown
 
     def step(self):
-        # ... to be completed
         if self.fully_grown == False and self.countdown > 0:
             self.countdown -= 1
         elif self.fully_grown == False and self.countdown == 0:
