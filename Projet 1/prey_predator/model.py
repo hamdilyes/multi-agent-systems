@@ -33,7 +33,12 @@ class WolfSheep(Model):
         grass=False,
         grass_regrowth_time=10,
         wolf_gain_from_food=1,
-        sheep_gain_from_food=1
+        sheep_gain_from_food=1,
+        #
+        sheep_energy = 1,
+        wolf_energy = 2,
+        sheep_age = 12,
+        wolf_age = 14
     ):
         """
         Create a new Wolf-Sheep model with the given parameters.
@@ -63,10 +68,10 @@ class WolfSheep(Model):
         self.sheep_gain_from_food = sheep_gain_from_food
 
         # Other parameters we chose
-        self.sheep_energy = 1
-        self.wolf_energy = 2
-        self.sheep_age = 12
-        self.wolf_age = 14
+        self.sheep_energy = sheep_energy
+        self.wolf_energy = wolf_energy
+        self.sheep_age = sheep_age
+        self.wolf_age = wolf_age
 
         # Create schedule and grid
         self.schedule = RandomActivationByBreed(self)
