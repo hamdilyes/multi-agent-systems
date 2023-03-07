@@ -8,7 +8,7 @@ class Sheep(RandomWalker):
 
     The init is the same as the RandomWalker.
     """
-    def __init__(self, unique_id, pos, model, moore, energy=3, age = 12):
+    def __init__(self, unique_id, pos, model, moore, energy, age):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
         self.age = age
@@ -27,12 +27,12 @@ class Sheep(RandomWalker):
                 if type(mate) is GrassPatch:
                     if mate.fully_grown:
                         mate.fully_grown = False
-                        self.energy += 1
+                        self.energy += self.model.sheep_gain_from_food
         # reproduce if enough energy
         if self.energy > 4 :
             r = np.random.choice(np.arange(0, 2), p=[self.model.sheep_reproduce, 1 - self.model.sheep_reproduce])
             if r == 0:
-                sheep = Sheep(self.model.next_id(), self.pos, self.model, True)
+                sheep = Sheep(self.model.next_id(), self.pos, self.model, True, energy=self.model.sheep_energy, age=self.model.sheep_age)
                 self.model.schedule.add(sheep)
                 self.model.grid.place_agent(sheep, self.pos)
 
@@ -44,7 +44,7 @@ class Wolf(RandomWalker):
     """
     A wolf that walks around, reproduces (asexually) and eats sheep.
     """
-    def __init__(self, unique_id, pos, model, moore, energy=3, age=14):
+    def __init__(self, unique_id, pos, model, moore, energy, age):
         super().__init__(unique_id, pos, model, moore=moore)
         self.energy = energy
         self.age = age
@@ -59,12 +59,12 @@ class Wolf(RandomWalker):
                 if type(mate) is Sheep:
                     self.model.schedule.remove(mate)
                     self.model.grid.remove_agent(mate)
-                    self.energy += 1
+                    self.energy += self.model.wolf_gain_from_food
         # reproduce if enough energy
         if self.energy > 4 :
             r = np.random.choice(np.arange(0, 2), p=[self.model.wolf_reproduce, 1 - self.model.wolf_reproduce])
             if r == 0:
-                wolf = Wolf(self.model.next_id(), self.pos, self.model, True)
+                wolf = Wolf(self.model.next_id(), self.pos, self.model, True, energy=self.model.wolf_energy, age=self.model.wolf_age)
                 self.model.schedule.add(wolf)
                 self.model.grid.place_agent(wolf, self.pos)
         
@@ -93,5 +93,5 @@ class GrassPatch(Agent):
             self.countdown -= 1
         elif self.fully_grown == False and self.countdown == 0:
             self.fully_grown = True
-            self.countdown = 10
+            self.countdown = self.model.grass_regrowth_time
         

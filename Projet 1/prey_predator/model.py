@@ -18,21 +18,6 @@ class WolfSheep(Model):
     """
     Wolf-Sheep Predation Model
     """
-    height = 20
-    width = 20
-
-    initial_sheep = 100
-    initial_wolves = 50
-
-    sheep_reproduce = 0.04
-    wolf_reproduce = 0.05
-
-    wolf_gain_from_food = 20
-
-    grass = False
-    grass_regrowth_time = 30
-    sheep_gain_from_food = 4
-
     description = (
         "A model for simulating wolf and sheep (predator-prey) ecosystem modelling."
     )
@@ -41,14 +26,14 @@ class WolfSheep(Model):
         self,
         height=20,
         width=20,
-        initial_sheep=initial_sheep,
-        initial_wolves=initial_wolves,
+        initial_sheep=100,
+        initial_wolves=50,
         sheep_reproduce=0.4,
         wolf_reproduce=0.2,
-        wolf_gain_from_food=20,
         grass=False,
-        grass_regrowth_time=30,
-        sheep_gain_from_food=4,
+        grass_regrowth_time=10,
+        wolf_gain_from_food=1,
+        sheep_gain_from_food=1
     ):
         """
         Create a new Wolf-Sheep model with the given parameters.
@@ -77,6 +62,13 @@ class WolfSheep(Model):
         self.grass_regrowth_time = grass_regrowth_time
         self.sheep_gain_from_food = sheep_gain_from_food
 
+        # Other parameters we chose
+        self.sheep_energy = 1
+        self.wolf_energy = 2
+        self.sheep_age = 12
+        self.wolf_age = 14
+
+        # Create schedule and grid
         self.schedule = RandomActivationByBreed(self)
         self.grid = MultiGrid(self.height, self.width, torus=True)
         self.datacollector = DataCollector(
@@ -90,8 +82,7 @@ class WolfSheep(Model):
         for _ in range(self.initial_sheep):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
-            energy = 1 # hypothesis: sheep all start with the same energy = 3
-            sheep = Sheep(self.next_id(), (x, y), self, True, energy)
+            sheep = Sheep(self.next_id(), (x, y), self, True, energy=self.sheep_energy, age=self.sheep_age)
             self.grid.place_agent(sheep, (x, y))
             self.schedule.add(sheep)
 
@@ -99,15 +90,14 @@ class WolfSheep(Model):
         for _ in range(self.initial_wolves):
             x = self.random.randrange(self.grid.width)
             y = self.random.randrange(self.grid.height)
-            energy = 2 # hypothesis: wolves all start with the same energy = 5
-            wolf = Wolf(self.next_id(), (x, y), self, True, energy)
+            wolf = Wolf(self.next_id(), (x, y), self, True, energy=self.wolf_energy, age=self.wolf_age)
             self.grid.place_agent(wolf, (x, y))
             self.schedule.add(wolf)
 
         # Create grass patches
         for x in range(self.grid.width):
             for y in range(self.grid.height):
-                patch = GrassPatch(self.next_id(), (x, y), self, fully_grown=True, countdown=10)
+                patch = GrassPatch(self.next_id(), (x, y), self, fully_grown=True, countdown=self.grass_regrowth_time)
                 self.grid.place_agent(patch, (x, y))
                 self.schedule.add(patch)
 

@@ -32,7 +32,6 @@ def wolf_sheep_portrayal(agent):
 
     return portrayal
 
-
 canvas_element = CanvasGrid(wolf_sheep_portrayal, 20, 20, 500, 500)
 chart_element = ChartModule(
     [{"Label": "Wolves", "Color": "#AA0000"}, {"Label": "Sheep", "Color": "#666666"}]
