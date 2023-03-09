@@ -19,7 +19,7 @@ def wolf_sheep_portrayal(agent):
 
     elif type(agent) is Wolf:
         portrayal["Shape"] = "prey_predator/wolf.png"
-        portrayal["scale"] = 0.5
+        portrayal["scale"] = 0.8
         portrayal["Layer"] = 2
 
     elif type(agent) is GrassPatch:
@@ -36,12 +36,18 @@ canvas_element = CanvasGrid(wolf_sheep_portrayal, 20, 20, 500, 500)
 chart_element = ChartModule(
     [{"Label": "Wolves", "Color": "#AA0000"}, {"Label": "Sheep", "Color": "#666666"}]
 )
+chart_element_sheep = ChartModule(
+    [{"Label": "Sheep", "Color": "#666666"}]
+)
+chart_element_wolf = ChartModule(
+    [{"Label": "Wolves", "Color": "#AA0000"}]
+)
 
 model_params = {
     # ... to be completed
 }
 
 server = ModularServer(
-    WolfSheep, [canvas_element, chart_element], "Prey Predator Model", model_params
+    WolfSheep, [canvas_element, chart_element, chart_element_sheep, chart_element_wolf], "Prey Predator Model", model_params
 )
 server.port = 8521

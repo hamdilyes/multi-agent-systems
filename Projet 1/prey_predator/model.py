@@ -26,19 +26,19 @@ class WolfSheep(Model):
         self,
         height=20,
         width=20,
-        initial_sheep=100,
-        initial_wolves=10,
-        sheep_reproduce=0.4,
-        wolf_reproduce=0.1,
+        initial_sheep=50,
+        initial_wolves=5,
+        sheep_reproduce=0.15,
+        wolf_reproduce=0.03,
         grass=False,
         grass_regrowth_time=10,
-        wolf_gain_from_food=1,
+        wolf_gain_from_food=6,
         sheep_gain_from_food=1,
         #
-        sheep_energy = 2,
-        wolf_energy = 2,
-        sheep_age = 14,
-        wolf_age = 7
+        sheep_energy = 1,
+        wolf_energy = 6,
+        sheep_age = 100,
+        wolf_age = 50
     ):
         """
         Create a new Wolf-Sheep model with the given parameters.
@@ -112,9 +112,13 @@ class WolfSheep(Model):
         # Collect data
         self.datacollector.collect(self)
 
+        # stop if all sheep or wolves are dead
+        if self.schedule.get_breed_count(Wolf) == 0 or self.schedule.get_breed_count(Sheep) == 0:
+            self.running = False
+
         # ... to be completed
 
-    def run_model(self, step_count=200):
+    def run_model(self, step_count=500):
         for _ in range(step_count):
             self.step()
 
