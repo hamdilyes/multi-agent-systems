@@ -28,14 +28,14 @@ class WolfSheep(Model):
         width=20,
         initial_sheep=100,
         initial_wolves=50,
-        sheep_reproduce=0.4,
-        wolf_reproduce=0.2,
+        sheep_reproduce=0.5,
+        wolf_reproduce=0.5,
         grass=False,
         grass_regrowth_time=10,
         wolf_gain_from_food=1,
         sheep_gain_from_food=1,
         #
-        sheep_energy = 1,
+        sheep_energy = 2,
         wolf_energy = 2,
         sheep_age = 12,
         wolf_age = 14

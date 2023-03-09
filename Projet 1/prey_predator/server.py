@@ -20,7 +20,7 @@ def wolf_sheep_portrayal(agent):
     elif type(agent) is Wolf:
         portrayal["Shape"] = "prey_predator/wolf.png"
         portrayal["scale"] = 0.8
-        portrayal["Layer"] = 1
+        portrayal["Layer"] = 2
 
     elif type(agent) is GrassPatch:
         portrayal["Shape"] = "rect"
