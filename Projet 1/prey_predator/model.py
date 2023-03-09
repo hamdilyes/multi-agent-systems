@@ -112,6 +112,10 @@ class WolfSheep(Model):
         # Collect data
         self.datacollector.collect(self)
 
+        # stop if no more sheep or wolves
+        if self.schedule.get_breed_count(Wolf) == 0 or self.schedule.get_breed_count(Sheep) == 0:
+            self.running = False
+
         # ... to be completed
 
     def run_model(self, step_count=200):
