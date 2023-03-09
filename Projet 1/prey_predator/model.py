@@ -27,7 +27,7 @@ class WolfSheep(Model):
         height=20,
         width=20,
         initial_sheep=100,
-        initial_wolves=50,
+        initial_wolves=10,
         sheep_reproduce=0.5,
         wolf_reproduce=0.5,
         grass=False,
@@ -37,8 +37,8 @@ class WolfSheep(Model):
         #
         sheep_energy = 2,
         wolf_energy = 2,
-        sheep_age = 12,
-        wolf_age = 14
+        sheep_age = 14,
+        wolf_age = 7
     ):
         """
         Create a new Wolf-Sheep model with the given parameters.
