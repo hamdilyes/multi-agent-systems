@@ -7,5 +7,14 @@
         "Diesel Engine": {
             "PRODUCTION_COST": "BAD"
         }
+    },
+    "1": {
+        "Electric Engine": {
+            "PRODUCTION_COST": "BAD"
+        },
+
+        "Diesel Engine": {
+            "PRODUCTION_COST": "BAD"
+        }
     }
 }
