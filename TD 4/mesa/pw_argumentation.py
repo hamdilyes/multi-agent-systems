@@ -1,5 +1,7 @@
 from mesa import Model
 from mesa.time import RandomActivation
+import pandas as pd
+import json
 
 from communication.agent.CommunicatingAgent import CommunicatingAgent
 from communication.message.MessageService import MessageService
@@ -9,9 +11,21 @@ from communication.preferences.CriterionValue import CriterionValue
 from communication.preferences.Value import Value
 from communication.preferences.Item import Item
 
-# upload data about Agents 1 and 2
-# data[unique_id][item][criterion_name] = criterion_value
 
+with open('data.json') as f:
+    data = json.load(f)
+
+def transform(value):
+    """ Transform the string value of the criterion into a correct value.
+    """
+    if value == 'VERY_BAD':
+        return Value.VERY_BAD
+    elif value == 'BAD':
+        return Value.BAD
+    elif value == 'GOOD':
+        return Value.GOOD
+    elif value == 'VERY_GOOD':
+        return Value.VERY_GOOD
 
 class ArgumentAgent( CommunicatingAgent ) :
     """ ArgumentAgent which inherit from CommunicatingAgent .
@@ -30,31 +44,17 @@ class ArgumentAgent( CommunicatingAgent ) :
         self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
                                         CriterionName.CONSUMPTION, CriterionName.DURABILITY,
                                         CriterionName.NOISE])
-        if self.unique_id == 0:
-            for item in List_items:
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.PRODUCTION_COST,
-                                                            Value.BAD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.CONSUMPTION,
-                                                            Value.VERY_BAD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.DURABILITY,
-                                                            Value.GOOD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.ENVIRONMENT_IMPACT,
-                                                            Value.VERY_GOOD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.NOISE,
-                                                            Value.VERY_GOOD))
-        else:
+        agent_data = data[str(self.unique_id)]
 
-            for item in List_items:
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.PRODUCTION_COST,
-                                                            Value.VERY_GOOD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.CONSUMPTION,
-                                                            Value.GOOD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.DURABILITY,
-                                                            Value.VERY_GOOD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.ENVIRONMENT_IMPACT,
-                                                            Value.VERY_BAD))
-                self.preference.add_criterion_value(CriterionValue(item, CriterionName.NOISE,
-                                                            Value.VERY_BAD))
+        for item in List_items:
+            item_data = agent_data[item.name]
+            for criterion in self.preference.get_criterion_name_list():
+                criterion_value = transform(item_data[criterion.name])
+
+                self.preference.add_criterion_value(CriterionValue(item, criterion.name),
+                                                  CriterionValue(item, criterion_value))
+                
+        print(self.preference.get_criterion_value_list())
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -66,7 +66,8 @@ class ArgumentModel( Model ) :
             agent_pref = Preferences()
             a = ArgumentAgent(i, self, "Agent" + str(i), agent_pref )
             self.schedule.add(a)
-            a.generate_preferences()
+            a.generate_preferences([Item("Diesel Engine", "A super cool diesel engine"), Item("Electric Engine", "A very quiet engine")])
+            print(i)
             self.schedule.add(a)
 
         self.running = True
@@ -75,8 +76,12 @@ class ArgumentModel( Model ) :
         self.__messages_service.dispatch_messages()
         self.schedule.step()
 
+    def get_preferences( self ):
+        return self.preference
+
 
 if __name__ == " __main__ ":
     argument_model = ArgumentModel()
+    print(argument_model.get_preferences())
 
     # To be completed

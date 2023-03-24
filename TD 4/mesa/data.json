@@ -1,0 +1,11 @@
+{
+    "0": {
+        "Electric Engine": {
+            "PRODUCTION_COST": "BAD"
+        },
+
+        "Diesel Engine": {
+            "PRODUCTION_COST": "BAD"
+        }
+    }
+}
