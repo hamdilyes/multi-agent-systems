@@ -9,7 +9,7 @@ class ArgumentAgent( CommunicatingAgent ) :
     """ ArgumentAgent which inherit from CommunicatingAgent .
     """
     def __init__( self , unique_id , model , name , preferences ) :
-        super().__init__( unique_id , model , name , preferences )
+        super().__init__( unique_id , model , name )
         self.preference = preferences
 
     def step( self ) :
@@ -29,19 +29,17 @@ class ArgumentModel( Model ) :
     def __init__( self ) :
         self.schedule = RandomActivation( self )
         self.__messages_service = MessageService( self.schedule )
-
-    # To be completed
-    #
-    # a = ArgumentAgent(id , " agent_name ")
-    # a. generate_preferences( preferences )
-    # self.schedule .add(a)
-    # ...
+        for i in range(2):
+            a = ArgumentAgent(i, self, "Agent" + str(i), [])
+            self.schedule.add(a)
+            a.generate_preferences()
+            self.schedule.add(a)
 
         self.running = True
 
     def step( self ) :
-        self.__messages_service . dispatch_messages()
-        self.schedule . step()
+        self.__messages_service.dispatch_messages()
+        self.schedule.step()
 
 
 if __name__ == " __main__ ":
