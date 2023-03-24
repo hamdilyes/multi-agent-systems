@@ -1,11 +1,37 @@
 {
     "0": {
         "Electric Engine": {
-            "PRODUCTION_COST": "BAD"
+            "PRODUCTION_COST": "BAD",
+            "CONSUMPTION": "VERY_BAD",
+            "DURABILITY": "GOOD",
+            "ENVIRONMENT_IMPACT": "VERY_GOOD",
+            "NOISE": "VERY_GOOD"
         },
 
         "Diesel Engine": {
-            "PRODUCTION_COST": "BAD"
+            "PRODUCTION_COST": "VERY_GOOD",
+            "CONSUMPTION": "GOOD",
+            "DURABILITY": "VERY_GOOD",
+            "ENVIRONMENT_IMPACT": "VERY_BAD",
+            "NOISE": "VERY_BAD"
+        }
+    },
+
+    "1": {
+        "Electric Engine": {
+            "PRODUCTION_COST": "BAD",
+            "CONSUMPTION": "VERY_BAD",
+            "DURABILITY": "GOOD",
+            "ENVIRONMENT_IMPACT": "VERY_GOOD",
+            "NOISE": "VERY_GOOD"
+        },
+
+        "Diesel Engine": {
+            "PRODUCTION_COST": "VERY_GOOD",
+            "CONSUMPTION": "GOOD",
+            "DURABILITY": "VERY_GOOD",
+            "ENVIRONMENT_IMPACT": "VERY_BAD",
+            "NOISE": "VERY_BAD"
         }
     }
 }
