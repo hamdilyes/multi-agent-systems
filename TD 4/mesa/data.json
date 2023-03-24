@@ -33,14 +33,5 @@
             "ENVIRONMENT_IMPACT": "VERY_BAD",
             "NOISE": "VERY_BAD"
         }
-    },
-    "1": {
-        "Electric Engine": {
-            "PRODUCTION_COST": "BAD"
-        },
-
-        "Diesel Engine": {
-            "PRODUCTION_COST": "BAD"
-        }
     }
 }
