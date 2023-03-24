@@ -4,6 +4,9 @@ from mesa.time import RandomActivation
 from communication.agent.CommunicatingAgent import CommunicatingAgent
 from communication.message.MessageService import MessageService
 
+# upload data about Agents 1 and 2
+# data[unique_id][item][criterion_name] = criterion_value
+
 
 class ArgumentAgent( CommunicatingAgent ) :
     """ ArgumentAgent which inherit from CommunicatingAgent .
