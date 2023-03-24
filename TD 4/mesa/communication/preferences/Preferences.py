@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-from communication.preferences.CriterionName import CriterionName
-from communication.preferences.CriterionValue import CriterionValue
-from communication.preferences.Item import Item
-from communication.preferences.Value import Value
+from CriterionName import CriterionName
+from CriterionValue import CriterionValue
+from Item import Item
+from Value import Value
 
 
 class Preferences:
@@ -67,6 +67,9 @@ class Preferences:
         """Returns the most preferred item from a list.
         """
         # To be completed
+        scores = [item.get_score(self) for item in item_list]
+        best_item = item_list[scores.index(max(scores))]
+
         return best_item
 
     def is_item_among_top_10_percent(self, item, item_list):
@@ -76,6 +79,13 @@ class Preferences:
         :return: a boolean, True means that the item is among the favourite ones
         """
         # To be completed
+        is_top_item = False
+        scores = [item.get_score(self) for item in item_list]
+        scores.sort(reverse=True)
+        top_10_percent = scores[:int(len(scores) * 0.1)]
+        if item.get_score(self) in top_10_percent:
+            is_top_item = True
+
         return is_top_item
 
 
