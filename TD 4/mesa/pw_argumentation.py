@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from mesa import Model
 from mesa.time import RandomActivation
 import pandas as pd
@@ -14,6 +15,8 @@ from communication.preferences.Item import Item
 
 with open('data.json') as f:
     data = json.load(f)
+    #close
+    f.close()
 
 def transform(value):
     """ Transform the string value of the criterion into a correct value.
@@ -41,18 +44,18 @@ class ArgumentAgent( CommunicatingAgent ) :
         return self.preference
 
     def generate_preferences( self , List_items ):
-        self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
-                                        CriterionName.CONSUMPTION, CriterionName.DURABILITY,
-                                        CriterionName.NOISE])
+        self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST])
         agent_data = data[str(self.unique_id)]
 
         for item in List_items:
-            item_data = agent_data[item.name]
+            item_data = agent_data[item.get_name()]
             for criterion in self.preference.get_criterion_name_list():
                 criterion_value = transform(item_data[criterion.name])
 
-                self.preference.add_criterion_value(CriterionValue(item, criterion.name),
-                                                  CriterionValue(item, criterion_value))
+                self.preference.add_criterion_value(CriterionValue(item,criterion, criterion_value))
+                                                  
+                                                  #.add_criterion_value(CriterionValue(diesel_engine, CriterionName.DURABILITY,
+                                                  #Value.VERY_GOOD))
                 
         print(self.preference.get_criterion_value_list())
 
@@ -65,10 +68,10 @@ class ArgumentModel( Model ) :
         for i in range(2):
             agent_pref = Preferences()
             a = ArgumentAgent(i, self, "Agent" + str(i), agent_pref )
-            self.schedule.add(a)
             a.generate_preferences([Item("Diesel Engine", "A super cool diesel engine"), Item("Electric Engine", "A very quiet engine")])
-            print(i)
             self.schedule.add(a)
+            print(i)
+           
 
         self.running = True
 
@@ -76,12 +79,14 @@ class ArgumentModel( Model ) :
         self.__messages_service.dispatch_messages()
         self.schedule.step()
 
-    def get_preferences( self ):
-        return self.preference
+    
 
 
-if __name__ == " __main__ ":
+if __name__ == '__main__':
+    print('*---- Testing communication package ----')
     argument_model = ArgumentModel()
-    print(argument_model.get_preferences())
+    print(argument_model)
+    print(argument_model.schedule.agents)
+  
 
     # To be completed
