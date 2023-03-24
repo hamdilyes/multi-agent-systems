@@ -27,18 +27,31 @@ class ArgumentAgent( CommunicatingAgent ) :
         self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
                                         CriterionName.CONSUMPTION, CriterionName.DURABILITY,
                                         CriterionName.NOISE])
+        if self.unique_id == 0:
+            for item in List_items:
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.PRODUCTION_COST,
+                                                            Value.BAD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.CONSUMPTION,
+                                                            Value.VERY_BAD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.DURABILITY,
+                                                            Value.GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.ENVIRONMENT_IMPACT,
+                                                            Value.VERY_GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.NOISE,
+                                                            Value.VERY_GOOD))
+        else:
 
-        for item in List_items:
-            self.preference.add_criterion_value(CriterionValue(item, CriterionName.PRODUCTION_COST,
-                                                        Value.VERY_GOOD))
-            self.preference.add_criterion_value(CriterionValue(item, CriterionName.CONSUMPTION,
-                                                        Value.GOOD))
-            self.preference.add_criterion_value(CriterionValue(item, CriterionName.DURABILITY,
-                                                        Value.VERY_GOOD))
-            self.preference.add_criterion_value(CriterionValue(item, CriterionName.ENVIRONMENT_IMPACT,
-                                                        Value.VERY_BAD))
-            self.preference.add_criterion_value(CriterionValue(item, CriterionName.NOISE,
-                                                        Value.VERY_BAD))
+            for item in List_items:
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.PRODUCTION_COST,
+                                                            Value.VERY_GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.CONSUMPTION,
+                                                            Value.GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.DURABILITY,
+                                                            Value.VERY_GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.ENVIRONMENT_IMPACT,
+                                                            Value.VERY_BAD))
+                self.preference.add_criterion_value(CriterionValue(item, CriterionName.NOISE,
+                                                            Value.VERY_BAD))
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
