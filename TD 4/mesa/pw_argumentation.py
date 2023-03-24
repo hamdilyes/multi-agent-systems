@@ -44,7 +44,9 @@ class ArgumentAgent( CommunicatingAgent ) :
         return self.preference
 
     def generate_preferences( self , List_items ):
-        self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST])
+        self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
+                                        CriterionName.CONSUMPTION, CriterionName.DURABILITY,
+                                        CriterionName.NOISE])
         agent_data = data[str(self.unique_id)]
 
         for item in List_items:
@@ -52,10 +54,7 @@ class ArgumentAgent( CommunicatingAgent ) :
             for criterion in self.preference.get_criterion_name_list():
                 criterion_value = transform(item_data[criterion.name])
 
-                self.preference.add_criterion_value(CriterionValue(item,criterion, criterion_value))
-                                                  
-                                                  #.add_criterion_value(CriterionValue(diesel_engine, CriterionName.DURABILITY,
-                                                  #Value.VERY_GOOD))
+                self.preference.add_criterion_value(CriterionValue(item, criterion, criterion_value))
                 
         print(self.preference.get_criterion_value_list())
 
@@ -69,9 +68,7 @@ class ArgumentModel( Model ) :
             agent_pref = Preferences()
             a = ArgumentAgent(i, self, "Agent" + str(i), agent_pref )
             a.generate_preferences([Item("Diesel Engine", "A super cool diesel engine"), Item("Electric Engine", "A very quiet engine")])
-            self.schedule.add(a)
-            print(i)
-           
+            self.schedule.add(a)           
 
         self.running = True
 
@@ -83,10 +80,9 @@ class ArgumentModel( Model ) :
 
 
 if __name__ == '__main__':
-    print('*---- Testing communication package ----')
     argument_model = ArgumentModel()
-    print(argument_model)
-    print(argument_model.schedule.agents)
+    # print(argument_model)
+    # print(argument_model.schedule.agents)
   
 
     # To be completed

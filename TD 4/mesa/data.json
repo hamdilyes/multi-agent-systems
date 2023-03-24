@@ -1,5 +1,14 @@
+// ordre critères - 0: important -> 4: pas important
 {
     "0": {
+        "Criteria_List": {
+            "PRODUCTION_COST": 0,
+            "CONSUMPTION": 2,
+            "DURABILITY": 3,
+            "ENVIRONMENT_IMPACT": 1,
+            "NOISE": 4
+        },
+
         "Electric Engine": {
             "PRODUCTION_COST": "BAD",
             "CONSUMPTION": "VERY_BAD",
@@ -13,23 +22,31 @@
             "CONSUMPTION": "GOOD",
             "DURABILITY": "VERY_GOOD",
             "ENVIRONMENT_IMPACT": "VERY_BAD",
-            "NOISE": "VERY_BAD"
+            "NOISE": "BAD"
         }
     },
 
     "1": {
+        "Criteria_List": {
+            "PRODUCTION_COST": 2,
+            "CONSUMPTION": 3,
+            "DURABILITY": 4,
+            "ENVIRONMENT_IMPACT": 0,
+            "NOISE": 1
+        },
+
         "Electric Engine": {
-            "PRODUCTION_COST": "BAD",
-            "CONSUMPTION": "VERY_BAD",
-            "DURABILITY": "GOOD",
+            "PRODUCTION_COST": "GOOD",
+            "CONSUMPTION": "BAD",
+            "DURABILITY": "BAD",
             "ENVIRONMENT_IMPACT": "VERY_GOOD",
             "NOISE": "VERY_GOOD"
         },
 
         "Diesel Engine": {
-            "PRODUCTION_COST": "VERY_GOOD",
-            "CONSUMPTION": "GOOD",
-            "DURABILITY": "VERY_GOOD",
+            "PRODUCTION_COST": "GOOD",
+            "CONSUMPTION": "BAD",
+            "DURABILITY": "GOOD",
             "ENVIRONMENT_IMPACT": "VERY_BAD",
             "NOISE": "VERY_BAD"
         }
