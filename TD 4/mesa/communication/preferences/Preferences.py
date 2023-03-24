@@ -82,7 +82,7 @@ class Preferences:
         is_top_item = False
         scores = [item.get_score(self) for item in item_list]
         scores.sort(reverse=True)
-        top_10_percent = scores[:int(len(scores) * 0.1)]
+        top_10_percent = scores[:int(len(scores) * 0.1) + 1]
         if item.get_score(self) in top_10_percent:
             is_top_item = True
 
@@ -131,3 +131,4 @@ if __name__ == '__main__':
     print('Electric Engine (for agent 1) = {}'.format(electric_engine.get_score(agent_pref)))
     print('Diesel Engine (for agent 1) = {}'.format(diesel_engine.get_score(agent_pref)))
     print('Most preferred item is : {}'.format(agent_pref.most_preferred([diesel_engine, electric_engine]).get_name()))
+    print('Is Diesel Engine among the top 10 percent of the preferred items ? : {}'.format(agent_pref.is_item_among_top_10_percent(diesel_engine, [diesel_engine, electric_engine])))
