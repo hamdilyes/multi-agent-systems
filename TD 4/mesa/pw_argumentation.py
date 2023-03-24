@@ -15,10 +15,9 @@ from communication.preferences.Item import Item
 
 with open('data.json') as f:
     data = json.load(f)
-    #close
     f.close()
 
-def transform(value):
+def transform_value(value):
     """ Transform the string value of the criterion into a correct value.
     """
     if value == 'VERY_BAD':
@@ -29,6 +28,20 @@ def transform(value):
         return Value.GOOD
     elif value == 'VERY_GOOD':
         return Value.VERY_GOOD
+    
+def transform_name(value):
+    """ Transform the string value of the criterion into a correct value.
+    """
+    if value == 'PRODUCTION_COST':
+        return CriterionName.PRODUCTION_COST
+    elif value == 'ENVIRONMENT_IMPACT':
+        return CriterionName.ENVIRONMENT_IMPACT
+    elif value == 'CONSUMPTION':
+        return CriterionName.CONSUMPTION
+    elif value == 'DURABILITY':
+        return CriterionName.DURABILITY
+    elif value == 'NOISE':
+        return CriterionName.NOISE
 
 class ArgumentAgent( CommunicatingAgent ) :
     """ ArgumentAgent which inherit from CommunicatingAgent .
@@ -42,21 +55,29 @@ class ArgumentAgent( CommunicatingAgent ) :
 
     def get_preference( self ):
         return self.preference
-
+    
+    # [CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
+    #                                     CriterionName.CONSUMPTION, CriterionName.DURABILITY,
+    #                                     CriterionName.NOISE]
     def generate_preferences( self , List_items ):
-        self.preference.set_criterion_name_list([CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
-                                        CriterionName.CONSUMPTION, CriterionName.DURABILITY,
-                                        CriterionName.NOISE])
         agent_data = data[str(self.unique_id)]
+
+        # get the list of criteria, non-ordered
+        criteria_list = agent_data["Criteria_List"].keys()
+        # sort criteria_list according to the values of the dictionary
+        criteria_list = sorted(criteria_list, key=lambda x: agent_data["Criteria_List"][x])
+        # transform the criteria_list into a list of CriterionName
+        criteria_list = [transform_name(x) for x in criteria_list]
+        self.preference.set_criterion_name_list(criteria_list)
 
         for item in List_items:
             item_data = agent_data[item.get_name()]
             for criterion in self.preference.get_criterion_name_list():
-                criterion_value = transform(item_data[criterion.name])
+                criterion_value = transform_value(item_data[criterion.name])
 
                 self.preference.add_criterion_value(CriterionValue(item, criterion, criterion_value))
                 
-        print(self.preference.get_criterion_value_list())
+        # print(self.preference.get_criterion_value_list())
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -76,7 +97,6 @@ class ArgumentModel( Model ) :
         self.__messages_service.dispatch_messages()
         self.schedule.step()
 
-    
 
 
 if __name__ == '__main__':
