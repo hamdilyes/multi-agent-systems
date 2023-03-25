@@ -22,6 +22,9 @@ with open('data.json') as f:
     data = json.load(f)
     f.close()
 
+List_items = [Item("Diesel Engine", "A super cool diesel engine"),
+                Item("Electric Engine", "A very quiet engine")]
+
 def transform_value(value):
     """ Transform the string value of the criterion into a correct value.
     """
@@ -96,8 +99,6 @@ class ArgumentModel( Model ) :
         for i in range(N):
             agent_pref = Preferences()
             a = ArgumentAgent(i, self, "Agent" + str(i), agent_pref )
-            List_items = [Item("Diesel Engine", "A super cool diesel engine"),
-                          Item("Electric Engine", "A very quiet engine")]
             a.generate_preferences(List_items)
             self.schedule.add(a)           
 
@@ -110,22 +111,33 @@ class ArgumentModel( Model ) :
 
 
 if __name__ == '__main__':
-    # Init the model and the agents
+    ##### Init the model and the agents
     argument_model = ArgumentModel(N=2, max_steps=100)
     service = argument_model._ArgumentModel__messages_service
     
-    # Launch the Communication part
-    # define the messages
-    message_list = [
-        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, Item("Diesel Engine", "A super cool diesel engine")),
-        Message("Agent1", "Agent0", MessagePerformative.ACCEPT, Item("Diesel Engine", "A super cool diesel engine"))
-        ]
+    ##### Launch the Communication part
+    ### argumentation functions
+    # if the item belongs to its 10% most preferred item: accept it, else: ask why
+    def accept_or_askwhy_top10(message):
+        send = message.get_exp()
+        dest = service.find_agent_from_name(message.get_dest())
+        item = message.get_content()
+        if dest.get_preference().is_item_among_top_10_percent(item, List_items):
+            message_list.append(Message(dest, send, MessagePerformative.ACCEPT, item))
+        else:
+            message_list.append(Message(dest, send, MessagePerformative.ASK_WHY, item))
 
-    # send the messages
+    ### define the messages using the message list and the argumentation functions
+    message_list = [
+        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, Item("Diesel Engine", "A super cool diesel engine"))
+        ]
+    accept_or_askwhy_top10(message_list[-1])
+
+    ### send the messages and print the history
     for i in range(len(message_list)):
         service.send_message(message_list[i])
         print(message_list[i].__str__())
 
-    # steps
+    ### steps
     while argument_model.running and argument_model.schedule.steps < argument_model.max_steps:
         argument_model.step()
