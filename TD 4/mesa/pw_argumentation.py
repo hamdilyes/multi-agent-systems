@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 from mesa import Model
 from mesa.time import RandomActivation
-import pandas as pd
 import json
 
 from communication.agent.CommunicatingAgent import CommunicatingAgent
+
+from communication.mailbox.Mailbox import Mailbox
+from communication.message.Message import Message
+from communication.message.MessagePerformative import MessagePerformative
 from communication.message.MessageService import MessageService
+
 from communication.preferences.Preferences import Preferences
 from communication.preferences.CriterionName import CriterionName
 from communication.preferences.CriterionValue import CriterionValue
 from communication.preferences.Value import Value
 from communication.preferences.Item import Item
+
 
 
 with open('data.json') as f:
@@ -42,6 +47,8 @@ def transform_name(value):
         return CriterionName.DURABILITY
     elif value == 'NOISE':
         return CriterionName.NOISE
+    
+
 
 class ArgumentAgent( CommunicatingAgent ) :
     """ ArgumentAgent which inherit from CommunicatingAgent .
@@ -57,8 +64,8 @@ class ArgumentAgent( CommunicatingAgent ) :
         return self.preference
     
     # [CriterionName.PRODUCTION_COST, CriterionName.ENVIRONMENT_IMPACT,
-    #                                     CriterionName.CONSUMPTION, CriterionName.DURABILITY,
-    #                                     CriterionName.NOISE]
+    #  CriterionName.CONSUMPTION, CriterionName.DURABILITY,
+    #  CriterionName.NOISE]
     def generate_preferences( self , List_items ):
         agent_data = data[str(self.unique_id)]
 
@@ -82,13 +89,16 @@ class ArgumentAgent( CommunicatingAgent ) :
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
     """
-    def __init__( self ) :
+    def __init__( self, N, max_steps ) :
         self.schedule = RandomActivation( self )
         self.__messages_service = MessageService( self.schedule )
-        for i in range(2):
+        self.max_steps = max_steps
+        for i in range(N):
             agent_pref = Preferences()
             a = ArgumentAgent(i, self, "Agent" + str(i), agent_pref )
-            a.generate_preferences([Item("Diesel Engine", "A super cool diesel engine"), Item("Electric Engine", "A very quiet engine")])
+            List_items = [Item("Diesel Engine", "A super cool diesel engine"),
+                          Item("Electric Engine", "A very quiet engine")]
+            a.generate_preferences(List_items)
             self.schedule.add(a)           
 
         self.running = True
@@ -100,9 +110,22 @@ class ArgumentModel( Model ) :
 
 
 if __name__ == '__main__':
-    argument_model = ArgumentModel()
-    # print(argument_model)
-    # print(argument_model.schedule.agents)
-  
+    # Init the model and the agents
+    argument_model = ArgumentModel(N=2, max_steps=100)
+    service = argument_model._ArgumentModel__messages_service
+    
+    # Launch the Communication part
+    # define the messages
+    message_list = [
+        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, Item("Diesel Engine", "A super cool diesel engine")),
+        Message("Agent1", "Agent0", MessagePerformative.ACCEPT, Item("Diesel Engine", "A super cool diesel engine"))
+        ]
 
-    # To be completed
+    # send the messages
+    for i in range(len(message_list)):
+        service.send_message(message_list[i])
+        print(message_list[i].__str__())
+
+    # steps
+    while argument_model.running and argument_model.schedule.steps < argument_model.max_steps:
+        argument_model.step()
