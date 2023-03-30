@@ -79,6 +79,7 @@ class Preferences:
         :return: a boolean, True means that the item is among the favourite ones
         """
         # To be completed
+        
         is_top_item = False
         scores = [item.get_score(self) for item in item_list]
         scores.sort(reverse=True)

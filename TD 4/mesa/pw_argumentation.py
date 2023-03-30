@@ -121,7 +121,10 @@ if __name__ == '__main__':
     def accept_or_askwhy_top10(message):
         send = message.get_exp()
         dest = service.find_agent_from_name(message.get_dest())
+        dest.generate_preferences(List_items)
         item = message.get_content()
+        print("Item : ",item, dest)
+        print(dest.get_preference().most_preferred(List_items))
         if dest.get_preference().is_item_among_top_10_percent(item, List_items):
             message_list.append(Message(dest, send, MessagePerformative.ACCEPT, item))
         else:
@@ -129,7 +132,7 @@ if __name__ == '__main__':
 
     ### define the messages using the message list and the argumentation functions
     message_list = [
-        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, Item("Diesel Engine", "A super cool diesel engine"))
+        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, List_items[1])
         ]
     accept_or_askwhy_top10(message_list[-1])
 
