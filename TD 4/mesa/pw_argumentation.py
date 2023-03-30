@@ -121,7 +121,7 @@ if __name__ == '__main__':
     def accept_or_askwhy_top10(message):
         send = message.get_exp()
         dest = service.find_agent_from_name(message.get_dest())
-        dest.generate_preferences(List_items)
+        #dest.generate_preferences(List_items)
         item = message.get_content()
         print("Item : ",item, dest)
         print(dest.get_preference().most_preferred(List_items))
