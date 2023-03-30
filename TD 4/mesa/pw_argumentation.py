@@ -120,7 +120,7 @@ if __name__ == '__main__':
     # if the item belongs to its 10% most preferred item: accept it, else: ask why
     def accept_or_askwhy_top10(message):
         send = message.get_exp()
-        send_a = service.find_agent_from_name(message.get_exp())
+        #send_a = service.find_agent_from_name(message.get_exp())
         dest = message.get_dest()
         dest_a = service.find_agent_from_name(message.get_dest())
         #dest.generate_preferences(List_items)
@@ -128,13 +128,13 @@ if __name__ == '__main__':
         print("Item : ",item, dest)
         print(dest_a.get_preference().most_preferred(List_items))
         if dest_a.get_preference().is_item_among_top_10_percent(item, List_items):
-            message_list.append(Message(dest_a, send, MessagePerformative.ACCEPT, item))
-            message_list.append(Message(dest_a, send, MessagePerformative.COMMIT, item))
-            message_list.append(Message(send_a, dest, MessagePerformative.COMMIT, item))
+            message_list.append(Message(dest, send, MessagePerformative.ACCEPT, item))
+            message_list.append(Message(dest, send, MessagePerformative.COMMIT, item))
+            message_list.append(Message(send, dest, MessagePerformative.COMMIT, item))
             #send.remove_item(item)
             #dest.remove_item(item)
         else:
-            message_list.append(Message(dest_a, send, MessagePerformative.ASK_WHY, item))
+            message_list.append(Message(dest, send, MessagePerformative.ASK_WHY, item))
 
     ### define the messages using the message list and the argumentation functions
     message_list = [
