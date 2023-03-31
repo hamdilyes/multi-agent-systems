@@ -1,7 +1,7 @@
 from mesa import Model
 from mesa.time import RandomActivation
 import json
-
+import random
 from communication.agent.CommunicatingAgent import CommunicatingAgent
 
 from communication.mailbox.Mailbox import Mailbox
@@ -59,6 +59,30 @@ class ArgumentAgent( CommunicatingAgent ) :
 
     def step( self ) :
         super().step()
+        list_messages = self.get_new_messages()
+        for message in list_messages:
+            send = message.get_exp()
+            dest = message.get_dest()
+            dest_a = service.find_agent_from_name(dest)
+            item = message.get_content()
+            if message.get_performative() == MessagePerformative.PROPOSE:
+                    
+                if dest_a.get_preference().is_item_among_top_10_percent(item, List_items):
+                    self.send_message(Message(dest, send, MessagePerformative.ACCEPT, item))
+
+                else:
+                    self.send_message(Message(dest, send, MessagePerformative.ASK_WHY, item))
+
+            elif message.get_performative() == MessagePerformative.COMMIT:
+                self.send_message(Message(dest, send, MessagePerformative.COMMIT, item))
+                self.model.running = False
+                
+            elif message.get_performative() == MessagePerformative.ACCEPT:
+                self.send_message(Message(dest, send, MessagePerformative.COMMIT, item))
+
+            elif message.get_performative() == MessagePerformative.ASK_WHY:
+                self.send_message(Message(dest, send, MessagePerformative.ARGUE, item))
+            
 
     def get_preference( self ):
         return self.preference
@@ -113,35 +137,22 @@ if __name__ == '__main__':
     ##### Launch the Communication part
     ### argumentation functions
     # if the item belongs to its 10% most preferred item: accept it, else: ask why
-    def accept_or_askwhy_top10(message):
-        send = message.get_exp()
-        #send_a = service.find_agent_from_name(send)
-        dest = message.get_dest()
-        dest_a = service.find_agent_from_name(dest)
-        #dest.generate_preferences(List_items)
-        item = message.get_content()
-        # print("Item : ",item, dest)
-        # print(dest_a.get_preference().most_preferred(List_items))
-        if dest_a.get_preference().is_item_among_top_10_percent(item, List_items):
-            message_list.append(Message(dest, send, MessagePerformative.ACCEPT, item))
-            message_list.append(Message(dest, send, MessagePerformative.COMMIT, item))
-            message_list.append(Message(send, dest, MessagePerformative.COMMIT, item))
-            #send.remove_item(item)
-            #dest.remove_item(item)
-        else:
-            message_list.append(Message(dest, send, MessagePerformative.ASK_WHY, item))
+   
 
     ### define the messages using the message list and the argumentation functions
-    message_list = [
-        Message("Agent0", "Agent1", MessagePerformative.PROPOSE, List_items[1])
-        ]
-    accept_or_askwhy_top10(message_list[-1])
+    
+    ### Sender should be different from the receiver
+    agents = random.sample(argument_model.schedule.agents, 2)
+    sender = agents[0].get_name()
+    receiver = agents[1].get_name()
+    message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[1])
 
-    ### send the messages and print the history
-    for i in range(len(message_list)):
-        service.send_message(message_list[i])
-        print(message_list[i].__str__())
+    service.send_message(message)
+
+  
+
 
     ### steps
     while argument_model.running and argument_model.schedule.steps < argument_model.max_steps:
+        
         argument_model.step()
