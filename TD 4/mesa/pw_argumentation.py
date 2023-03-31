@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from mesa import Model
 from mesa.time import RandomActivation
 import json
@@ -15,7 +14,6 @@ from communication.preferences.CriterionName import CriterionName
 from communication.preferences.CriterionValue import CriterionValue
 from communication.preferences.Value import Value
 from communication.preferences.Item import Item
-
 
 
 with open('data.json') as f:
@@ -50,7 +48,6 @@ def transform_name(value):
         return CriterionName.DURABILITY
     elif value == 'NOISE':
         return CriterionName.NOISE
-    
 
 
 class ArgumentAgent( CommunicatingAgent ) :
@@ -84,10 +81,8 @@ class ArgumentAgent( CommunicatingAgent ) :
             item_data = agent_data[item.get_name()]
             for criterion in self.preference.get_criterion_name_list():
                 criterion_value = transform_value(item_data[criterion.name])
-
                 self.preference.add_criterion_value(CriterionValue(item, criterion, criterion_value))
-                
-        # print(self.preference.get_criterion_value_list())
+
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -113,20 +108,20 @@ class ArgumentModel( Model ) :
 if __name__ == '__main__':
     ##### Init the model and the agents
     argument_model = ArgumentModel(N=2, max_steps=100)
-    service = argument_model._ArgumentModel__messages_service
+    service = argument_model._ArgumentModel__messages_service # type: ignore
     
     ##### Launch the Communication part
     ### argumentation functions
     # if the item belongs to its 10% most preferred item: accept it, else: ask why
     def accept_or_askwhy_top10(message):
         send = message.get_exp()
-        #send_a = service.find_agent_from_name(message.get_exp())
+        #send_a = service.find_agent_from_name(send)
         dest = message.get_dest()
-        dest_a = service.find_agent_from_name(message.get_dest())
+        dest_a = service.find_agent_from_name(dest)
         #dest.generate_preferences(List_items)
         item = message.get_content()
-        print("Item : ",item, dest)
-        print(dest_a.get_preference().most_preferred(List_items))
+        # print("Item : ",item, dest)
+        # print(dest_a.get_preference().most_preferred(List_items))
         if dest_a.get_preference().is_item_among_top_10_percent(item, List_items):
             message_list.append(Message(dest, send, MessagePerformative.ACCEPT, item))
             message_list.append(Message(dest, send, MessagePerformative.COMMIT, item))
