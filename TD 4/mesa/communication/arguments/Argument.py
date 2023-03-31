@@ -1,5 +1,5 @@
-from arguments.Comparison import Comparison
-from arguments.CoupleValue import CoupleValue
+from communication.arguments.Comparison import Comparison
+from communication.arguments.CoupleValue import CoupleValue
 
 
 class Argument :
@@ -18,16 +18,20 @@ class Argument :
         # To be completed
         self.decision = boolean_decision
         self.item = item
-        self.comparison_list = []
-        self.couple_values_list = []
+        self.comparison = None
+        self.couple_values = None
+
 
     def add_premiss_comparison( self , criterion_name_1 , criterion_name_2 ) :
         """ Adds a premiss comparison in the comparison list .
         """
-        self.comparison_list.append(Comparison(criterion_name_1, criterion_name_2))
+        self.comparison = Comparison(criterion_name_1, criterion_name_2)
         
 
     def add_premiss_couple_values( self , criterion_name , value ) :
         """ Add a premiss couple values in the couple values list .
         """
-        self.couple_values_list.append(CoupleValue(criterion_name, value))
+        self.couple_values = CoupleValue(criterion_name, value)
+
+    def __str__(self):
+        return self.item.get_name()+' <= '+ self.couple_values.__str__() + " , " + self.comparison.__str__()

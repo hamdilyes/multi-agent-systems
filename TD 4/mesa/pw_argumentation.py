@@ -14,6 +14,7 @@ from communication.preferences.CriterionName import CriterionName
 from communication.preferences.CriterionValue import CriterionValue
 from communication.preferences.Value import Value
 from communication.preferences.Item import Item
+from communication.arguments.Argument import Argument
 
 
 with open('data.json') as f:
@@ -81,7 +82,10 @@ class ArgumentAgent( CommunicatingAgent ) :
                 self.send_message(Message(dest, send, MessagePerformative.COMMIT, item))
 
             elif message.get_performative() == MessagePerformative.ASK_WHY:
-                self.send_message(Message(dest, send, MessagePerformative.ARGUE, item))
+                argument = Argument(boolean_decision=True, item=item)
+                proposal = self.support_proposal(item)
+                argument.add_premiss_couple_values(proposal.get_criterion_name(), proposal.get_value())
+                self.send_message(Message(dest, send, MessagePerformative.ARGUE, argument))
             
 
     def get_preference( self ):
@@ -107,36 +111,47 @@ class ArgumentAgent( CommunicatingAgent ) :
                 criterion_value = transform_value(item_data[criterion.name])
                 self.preference.add_criterion_value(CriterionValue(item, criterion, criterion_value))
 
-    def List_Supporting_Proposal(self, item, preferences):
+    def List_Supporting_Proposal(self, item):
         """ Generate a list of premisses which can be used to support an item
         param item : Item - name of the item
         return : list of all premisses PRO an item ( sorted by order of importance
         based on agents preferences )
         """
-        preferences = self.preference
         # To be completed
         supporting_proposals = []
 
-        for criterion_name in preferences.get_criterion_name_list():
-            criterion_value = preferences.get_value(item, criterion_name)
-            if criterion_value in [Value.GOOD, Value.VERY_GOOD]:
-                supporting_proposals.append(criterion_name)
+        for criterion in self.preference.get_criterion_value_list():
+            if criterion.get_item() == item:
+                criterion_value = self.preference.get_value(item, criterion.get_criterion_name())
+                if criterion_value in [Value.GOOD, Value.VERY_GOOD]:
+                    supporting_proposals.append(criterion)
+        
+        return supporting_proposals
 
-    def List_Attacking_Proposal(self, item, preferences):
+    def List_Attacking_Proposal(self, item):
         """ Generate a list of premisses which can be used to attack an item
         param item : Item - name of the item
         return : list of all premisses CON an item ( sorted by order of importance
         based on agents preferences )
         """
-        preferences = self.preference
         # To be completed
         attacking_proposals = []
         
-        for criterion_name in preferences.get_criterion_name_list():
-            criterion_value = preferences.get_value(item, criterion_name)
+        for criterion_name in self.preference.get_criterion_name_list():
+            criterion_value = self.preference.get_value(item, criterion_name)
             if criterion_value in [Value.BAD, Value.VERY_BAD]:
-                attacking_proposals.append(criterion_name)
+                attacking_proposals.append(criterion_value)
+        
+        return attacking_proposals
 
+    def support_proposal(self , item ) :
+        """
+        Used when the agent receives " ASK_WHY " after having proposed an item
+        param item : str - name of the item which was proposed
+        return : string - the strongest supportive argument
+        """
+        # To be completed
+        return self.List_Supporting_Proposal(item)[0]
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -177,7 +192,7 @@ if __name__ == '__main__':
     receiver = agents[1].get_name()
     message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[1])
 
-    sender.send_message(message)
+    agents[0].send_message(message)
 
   
 
