@@ -30,4 +30,4 @@ class Argument :
     def add_premiss_couple_values( self , criterion_name , value ) :
         """ Add a premiss couple values in the couple values list .
         """
-        self.comparison_list.append(CoupleValue(criterion_name, value))
+        self.couple_values_list.append(CoupleValue(criterion_name, value))
