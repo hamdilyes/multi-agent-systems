@@ -107,6 +107,36 @@ class ArgumentAgent( CommunicatingAgent ) :
                 criterion_value = transform_value(item_data[criterion.name])
                 self.preference.add_criterion_value(CriterionValue(item, criterion, criterion_value))
 
+    def List_Supporting_Proposal(self, item, preferences):
+        """ Generate a list of premisses which can be used to support an item
+        param item : Item - name of the item
+        return : list of all premisses PRO an item ( sorted by order of importance
+        based on agents preferences )
+        """
+        preferences = self.preference
+        # To be completed
+        supporting_proposals = []
+
+        for criterion_name in preferences.get_criterion_name_list():
+            criterion_value = preferences.get_value(item, criterion_name)
+            if criterion_value in [Value.GOOD, Value.VERY_GOOD]:
+                supporting_proposals.append(criterion_name)
+
+    def List_Attacking_Proposal(self, item, preferences):
+        """ Generate a list of premisses which can be used to attack an item
+        param item : Item - name of the item
+        return : list of all premisses CON an item ( sorted by order of importance
+        based on agents preferences )
+        """
+        preferences = self.preference
+        # To be completed
+        attacking_proposals = []
+        
+        for criterion_name in preferences.get_criterion_name_list():
+            criterion_value = preferences.get_value(item, criterion_name)
+            if criterion_value in [Value.BAD, Value.VERY_BAD]:
+                attacking_proposals.append(criterion_name)
+
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -147,7 +177,7 @@ if __name__ == '__main__':
     receiver = agents[1].get_name()
     message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[1])
 
-    service.send_message(message)
+    sender.send_message(message)
 
   
 
