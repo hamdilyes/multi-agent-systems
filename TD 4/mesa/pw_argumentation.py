@@ -86,6 +86,28 @@ class ArgumentAgent( CommunicatingAgent ) :
                 proposal = self.support_proposal(item)
                 argument.add_premiss_couple_values(proposal.get_criterion_name(), proposal.get_value())
                 self.send_message(Message(dest, send, MessagePerformative.ARGUE, argument))
+
+            elif message.get_performative() == MessagePerformative.ARGUE:
+                #print("Hey")
+                argument = message.get_content()
+                #print(argument)
+                item = argument.item
+                attack = self.attack_argument(argument)
+                #print(attack)
+                if not attack[0]:
+                    #print("I accept")
+                    self.send_message(Message(dest, send, MessagePerformative.ACCEPT, item))
+                else:
+                    #print("I counter-argue")
+                    counter_argument = Argument(boolean_decision=False, item=item)
+                    if attack[1] in (1,2):
+                        crit = [c for c in self.preference.get_criterion_value_list() if c.get_item() == item][0]
+                        counter_argument.add_premiss_comparison(crit.get_criterion_name(),argument.couple_values.criterion_name)
+                        counter_argument.add_premiss_couple_values(crit.get_criterion_name(),crit.get_value() )
+                        self.send_message(Message(dest, send, MessagePerformative.ARGUE,counter_argument ))
+                    elif attack[1] == 3:
+                        self.send_message(Message(dest, send, MessagePerformative.PROPOSE, self.preference.most_preferred(List_items)))
+
             
 
     def get_preference( self ):
@@ -137,10 +159,11 @@ class ArgumentAgent( CommunicatingAgent ) :
         # To be completed
         attacking_proposals = []
         
-        for criterion_name in self.preference.get_criterion_name_list():
-            criterion_value = self.preference.get_value(item, criterion_name)
-            if criterion_value in [Value.BAD, Value.VERY_BAD]:
-                attacking_proposals.append(criterion_value)
+        for criterion in self.preference.get_criterion_value_list():
+            if criterion.get_item() == item:
+                criterion_value = self.preference.get_value(item, criterion.get_criterion_name())
+                if criterion_value in [Value.BAD, Value.VERY_BAD]:
+                    attacking_proposals.append(criterion)
         
         return attacking_proposals
 
@@ -152,6 +175,51 @@ class ArgumentAgent( CommunicatingAgent ) :
         """
         # To be completed
         return self.List_Supporting_Proposal(item)[0]
+
+    def parse_argument(self, argument):
+        """ Parse an argument and return the list of premisses
+        param argument : Argument
+        return : list of CriterionValue
+        """
+        # To be completed
+        return [argument.comparison , argument.couple_values]
+
+    def attack_argument(self , argument ) :
+        """
+        Write a method that decides whether an argument can be attacked or not. In our context the
+        agent can attack or contradict an argument provided by another agent if:
+        • The criterion is not important for him (regarding his order)
+        • Its local value for the item is lower than the one of the other agent on the considered criteria
+        • He prefers another item and he can defend it by an argument with a better value on the
+        same criterion.
+        """
+        # The criterion is not important for him (regarding his order)
+        if argument.couple_values is not None:
+            criterion = argument.couple_values.criterion_name
+            value = argument.couple_values.value
+            if criterion in self.preference.get_criterion_name_list()[-1:-2:-1]:
+                return True, 1
+
+            # Its local value for the item is lower than the one of the other agent on the considered criteria
+            b = False
+            for crit in self.preference.get_criterion_value_list():
+                if crit.get_criterion_name() == criterion and crit.get_value() in [Value.BAD, Value.VERY_BAD]:
+                    b = True
+                    cr = crit
+                    break
+            if b and value in [Value.GOOD, Value.VERY_GOOD]:
+                return True, 2
+
+
+        # He prefers another item and he can defend it by an argument with a better value on the same criterion.
+        if self.preference.most_preferred(List_items) != argument.item:
+            return True, 3
+               
+            
+        return False, 0
+
+
+       
 
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
@@ -188,9 +256,11 @@ if __name__ == '__main__':
     
     ### Sender should be different from the receiver
     agents = random.sample(argument_model.schedule.agents, 2)
+    #ag = agents[0].support_proposal(List_items[1])
+    #print(ag.get_criterion_name(),ag.get_value())
     sender = agents[0].get_name()
     receiver = agents[1].get_name()
-    message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[1])
+    message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[0])
 
     agents[0].send_message(message)
 
