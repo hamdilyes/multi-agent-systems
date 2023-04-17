@@ -66,27 +66,29 @@ class ArgumentAgent( CommunicatingAgent ) :
             dest = message.get_dest()
             dest_a = service.find_agent_from_name(dest)
             item = message.get_content()
+            # PROPOSE
             if message.get_performative() == MessagePerformative.PROPOSE:
-                    
                 if dest_a.get_preference().is_item_among_top_10_percent(item, List_items):
                     self.send_message(Message(dest, send, MessagePerformative.ACCEPT, item))
-
                 else:
                     self.send_message(Message(dest, send, MessagePerformative.ASK_WHY, item))
-
+            # COMMIT
             elif message.get_performative() == MessagePerformative.COMMIT:
                 self.send_message(Message(dest, send, MessagePerformative.COMMIT, item))
                 self.model.running = False
-                
+            # ACCEPT 
             elif message.get_performative() == MessagePerformative.ACCEPT:
                 self.send_message(Message(dest, send, MessagePerformative.COMMIT, item))
-
+            # ASK_WHY
             elif message.get_performative() == MessagePerformative.ASK_WHY:
                 argument = Argument(boolean_decision=True, item=item)
                 proposal = self.support_proposal(item)
+                # add couple value
                 argument.add_premiss_couple_values(proposal.get_criterion_name(), proposal.get_value())
+                # add comparison
+                # argument.add_premiss_comparison(proposal.get_criterion_name(), dest_a.get_preference().get_criterion_name_list()[0])
                 self.send_message(Message(dest, send, MessagePerformative.ARGUE, argument))
-            
+
 
     def get_preference( self ):
         return self.preference
@@ -153,12 +155,14 @@ class ArgumentAgent( CommunicatingAgent ) :
         # To be completed
         return self.List_Supporting_Proposal(item)[0]
 
+
 class ArgumentModel( Model ) :
     """ ArgumentModel which inherit from Model .
     """
     def __init__( self, N, max_steps ) :
         self.schedule = RandomActivation( self )
         self.__messages_service = MessageService( self.schedule )
+        self.N = N
         self.max_steps = max_steps
         for i in range(N):
             agent_pref = Preferences()
@@ -178,24 +182,16 @@ if __name__ == '__main__':
     ##### Init the model and the agents
     argument_model = ArgumentModel(N=2, max_steps=100)
     service = argument_model._ArgumentModel__messages_service # type: ignore
-    
-    ##### Launch the Communication part
-    ### argumentation functions
-    # if the item belongs to its 10% most preferred item: accept it, else: ask why
-   
-
-    ### define the messages using the message list and the argumentation functions
-    
+       
     ### Sender should be different from the receiver
-    agents = random.sample(argument_model.schedule.agents, 2)
+    agents = random.sample(argument_model.schedule.agents, argument_model.N)
     sender = agents[0].get_name()
     receiver = agents[1].get_name()
-    message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[1])
+   
+    # propose an item
+    message = Message(sender, receiver, MessagePerformative.PROPOSE, List_items[0])
 
     agents[0].send_message(message)
-
-  
-
 
     ### steps
     while argument_model.running and argument_model.schedule.steps < argument_model.max_steps:
