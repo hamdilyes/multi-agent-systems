@@ -31,6 +31,6 @@ class Argument :
 
     def __str__(self):
         if self.decision:
-            return self.item.get_name()+' <= '+ self.couple_values.__str__() + " , " + self.comparison.__str__()
+            return self.item.get_name()+' <= '+ self.couple_values.__str__()  + (self.comparison.__str__() if self.comparison is not None else '')
         else:
-            return 'not ' + self.item.get_name()+' > '+ self.couple_values.__str__() + " , " + self.comparison.__str__()
+            return 'Not ' + self.item.get_name()+' <= '+ self.couple_values.__str__()  + (self.comparison.__str__() if self.comparison is not None else '')

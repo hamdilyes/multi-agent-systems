@@ -10,4 +10,7 @@ class CoupleValue:
         self.value = value
 
     def __str__(self):
-        return str(self.criterion_name) + " = " + str(self.value)
+        if self.criterion_name is not None and self.value is not None:
+            return str(self.criterion_name.name) + " = " + str(self.value.name)
+        else:
+            return ""

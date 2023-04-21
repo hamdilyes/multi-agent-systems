@@ -5,11 +5,14 @@ class Comparison:
     attr: best_criterion_name: worst_criterion_name:
     """
 
-    def __init__(self,best_criterion_name, worst_criterion_name) -> None:
+    def __init__(self,best_criterion_name, worst_criterion_name):
         self.best_criterion_name = best_criterion_name
         self.worst_criterion_name = worst_criterion_name
 
     def __str__(self):
-        return str(self.best_criterion_name) + " > " + str(self.worst_criterion_name)
+        if self.best_criterion_name is not None and self.worst_criterion_name is not None:
+            return ", " + str(self.best_criterion_name.name) + " > " + str(self.worst_criterion_name.name)
+        else:
+            return ""
 
     
