@@ -1,0 +1,442 @@
+{
+    "0": {
+        "Criteria_List": {
+            "POPULARITY": 4,
+            "PHYSICAL_INTENSITY": 3,
+            "SKILL_REQUIRED": 2,
+            "TEAM_PLAY": 1,
+            "ENTERTAINMENT_VALUE": 5
+        },
+        "Football": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Tennis": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        }
+    },
+    "1": {
+        "Criteria_List": {
+            "POPULARITY": 1,
+            "PHYSICAL_INTENSITY": 4,
+            "SKILL_REQUIRED": 3,
+            "TEAM_PLAY": 5,
+            "ENTERTAINMENT_VALUE": 2
+        },
+        "Football": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Tennis": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Swimming": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        }
+    },
+    "2": {
+        "Criteria_List": {
+            "POPULARITY": 3,
+            "PHYSICAL_INTENSITY": 1,
+            "SKILL_REQUIRED": 5,
+            "TEAM_PLAY": 4,
+            "ENTERTAINMENT_VALUE": 2
+        },
+        "Football": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        }
+    },
+    "3": {
+        "Criteria_List": {
+            "POPULARITY": 1,
+            "PHYSICAL_INTENSITY": 2,
+            "SKILL_REQUIRED": 3,
+            "TEAM_PLAY": 5,
+            "ENTERTAINMENT_VALUE": 4
+        },
+        "Football": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Basketball": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Swimming": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        }
+    },
+    "4": {
+        "Criteria_List": {
+            "POPULARITY": 3,
+            "PHYSICAL_INTENSITY": 4,
+            "SKILL_REQUIRED": 5,
+            "TEAM_PLAY": 2,
+            "ENTERTAINMENT_VALUE": 1
+        },
+        "Football": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Golf": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        }
+    },
+    "5": {
+        "Criteria_List": {
+            "POPULARITY": 1,
+            "PHYSICAL_INTENSITY": 5,
+            "SKILL_REQUIRED": 3,
+            "TEAM_PLAY": 2,
+            "ENTERTAINMENT_VALUE": 4
+        },
+        "Football": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Tennis": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Golf": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        }
+    },
+    "6": {
+        "Criteria_List": {
+            "POPULARITY": 1,
+            "PHYSICAL_INTENSITY": 5,
+            "SKILL_REQUIRED": 2,
+            "TEAM_PLAY": 3,
+            "ENTERTAINMENT_VALUE": 4
+        },
+        "Football": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        }
+    },
+    "7": {
+        "Criteria_List": {
+            "POPULARITY": 4,
+            "PHYSICAL_INTENSITY": 5,
+            "SKILL_REQUIRED": 3,
+            "TEAM_PLAY": 2,
+            "ENTERTAINMENT_VALUE": 1
+        },
+        "Football": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "BAD"
+        },
+        "Tennis": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Golf": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        }
+    },
+    "8": {
+        "Criteria_List": {
+            "POPULARITY": 2,
+            "PHYSICAL_INTENSITY": 5,
+            "SKILL_REQUIRED": 3,
+            "TEAM_PLAY": 4,
+            "ENTERTAINMENT_VALUE": 1
+        },
+        "Football": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Basketball": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        },
+        "Swimming": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        }
+    },
+    "9": {
+        "Criteria_List": {
+            "POPULARITY": 4,
+            "PHYSICAL_INTENSITY": 3,
+            "SKILL_REQUIRED": 2,
+            "TEAM_PLAY": 1,
+            "ENTERTAINMENT_VALUE": 5
+        },
+        "Football": {
+            "POPULARITY": "VERY_BAD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Basketball": {
+            "POPULARITY": "VERY_GOOD",
+            "PHYSICAL_INTENSITY": "BAD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "BAD",
+            "ENTERTAINMENT_VALUE": "GOOD"
+        },
+        "Tennis": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "GOOD",
+            "SKILL_REQUIRED": "GOOD",
+            "TEAM_PLAY": "GOOD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Golf": {
+            "POPULARITY": "BAD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_BAD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_GOOD"
+        },
+        "Swimming": {
+            "POPULARITY": "GOOD",
+            "PHYSICAL_INTENSITY": "VERY_GOOD",
+            "SKILL_REQUIRED": "VERY_GOOD",
+            "TEAM_PLAY": "VERY_BAD",
+            "ENTERTAINMENT_VALUE": "VERY_BAD"
+        }
+    }
+}
