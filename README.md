@@ -59,7 +59,7 @@ We make sure the model's running attribute is set to False to indicate that the 
 
 #### Launch
 We made sure the simulation prints out every message that is exchanged during the discussion.
-Run the pw_sport.py file, sit back and watch the agents discuss! It will simulate 100 discussions between two agents chosen randomly in the set of agents.
+Run the pw_sport.py file for sport items (pw_arumentation.py for cars), sit back and watch the agents discuss! It will simulate 100 discussions between two agents chosen randomly in the set of agents.
 
 ## Results
 Our 2-agent argumentation-based dialogue system is fully functional. We tested it with 2 different item types:
@@ -68,7 +68,7 @@ Our 2-agent argumentation-based dialogue system is fully functional. We tested i
 
 ### Statistics about our simulations
 For the simulation based on sports, we've got this histogram of the sports chosen on each of the 100 simulations.
-![Histogram](Projet 2/mesa/histogram.png "Number of times a sport is chosen")
+![Histogram](histogram.png "Number of times a sport is chosen")
 
 ## Next steps
 We need to decide on the agreement-making process between the agents, as in this first approach, the chosen item is the last one that cannot be attacked by a counter-argument. We have thought of another decision process where the chosen item will be the one with the minimum score, with the score being the difference between the number of arguments in favor and those against. Lastly, we could weigh the arguments to determine which type of argument is stronger.
