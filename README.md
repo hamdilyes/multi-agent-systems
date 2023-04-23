@@ -61,10 +61,18 @@ We make sure the model's running attribute is set to False to indicate that the 
 We made sure the simulation prints out every message that is exchanged during the discussion.
 Run the pw_sport.py file for sport items (pw_arumentation.py for cars), sit back and watch the agents discuss! It will simulate 100 discussions between two agents chosen randomly in the set of agents.
 
-## Results
+## Results 
 Our 2-agent argumentation-based dialogue system is fully functional. We tested it with 2 different item types:
 * Car engines (2) - Default
 * Sports (10) - Own
+
+Below two outputs of our two implementations :
+
+![Car](car.png)
+
+![Sport](sport.png)
+
+
 
 ### Statistics about our simulations
 For the simulation based on sports, we've got this histogram of the sports chosen on each of the 100 simulations.
