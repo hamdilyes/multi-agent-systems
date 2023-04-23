@@ -68,7 +68,7 @@ Our 2-agent argumentation-based dialogue system is fully functional. We tested i
 
 ### Statistics about our simulations
 For the simulation based on sports, we've got this histogram of the sports chosen on each of the 100 simulations.
-![Histogram](histogram.png "Number of times a sport is chosen")
+![Histogram](Projet 2/mesa/histogram.png "Number of times a sport is chosen")
 
 ## Next steps
-We need to make it multi-agent where interaction is still run between each pair of agents. This involves implementing new strategies for managing the dialogue flow as well as deciding when the common agreement is reached.
+We need to decide on the agreement-making process between the agents, as in this first approach, the chosen item is the last one that cannot be attacked by a counter-argument. We have thought of another decision process where the chosen item will be the one with the minimum score, with the score being the difference between the number of arguments in favor and those against. Lastly, we could weigh the arguments to determine which type of argument is stronger.
